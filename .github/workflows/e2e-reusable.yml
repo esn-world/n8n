@@ -63,7 +63,7 @@ jobs:
         run: echo "value=sha-$GITHUB_SHA-time-$(date +"%s")" >> $GITHUB_OUTPUT
 
   install:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: ['prepare']
     container:
       image: cypress/${{ inputs.run-env }}
