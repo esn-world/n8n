@@ -103,7 +103,7 @@ jobs:
         run: pnpm cypress:install
 
   testing:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     container:
       image: cypress/${{ inputs.run-env }}
       options: --user 1001
