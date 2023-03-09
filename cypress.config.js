@@ -36,6 +36,7 @@ module.exports = defineConfig({
 				'enable-feature': (feature) =>
 					fetch(BASE_URL + `/e2e/enable-feature/${feature}`, { method: 'POST' }),
 			});
+			require('@heddendorp/per-test-v8-cov/plugin')(on, config);
 		},
 	},
 });
