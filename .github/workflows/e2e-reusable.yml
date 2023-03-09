@@ -79,6 +79,9 @@ jobs:
         with:
           run_install: true
 
+      - name: Install coverage plugin
+        run: pnpm add -D @heddendorp/per-test-v8-cov
+
       - name: Cache pnpm modules
         uses: actions/cache@v3
         with:
@@ -116,6 +119,16 @@ jobs:
           repository: n8n-io/n8n
           ref: ${{ inputs.branch }}
 
+      - name: ⬇️ Download debugging port patch
+        uses: andymckay/get-gist-action@master
+        id: get
+        with:
+          gistURL: https://gist.github.com/heddendorp/06df539f2043269f207d6e0c0fce63db
+
+      - name: 💽 Apply debugging port patch
+        run: |
+          git apply ${{ steps.get.outputs.file }}
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v2.2.4
 
@@ -146,6 +159,7 @@ jobs:
         env:
           # CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           ELECTRON_EXTRA_LAUNCH_ARGS: '--remote-debugging-port=40500'
+          DEBUG: heddendorp:*
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           E2E_TESTS: true
           COMMIT_INFO_MESSAGE: 🌳 ${{ inputs.branch }} 🖥️ ${{ inputs.run-env }} 🤖 ${{ inputs.user }} 🗃️ ${{ inputs.spec }}
