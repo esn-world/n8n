@@ -80,7 +80,7 @@ jobs:
           run_install: true
 
       - name: Install coverage plugin
-        run: pnpm add -D @heddendorp/per-test-v8-cov
+        run: pnpm add -D -w @heddendorp/per-test-v8-cov@latest
 
       - name: Cache pnpm modules
         uses: actions/cache@v3
