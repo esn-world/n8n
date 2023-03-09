@@ -79,9 +79,6 @@ jobs:
         with:
           run_install: true
 
-      - name: Install coverage plugin
-        run: pnpm add -D -w @heddendorp/per-test-v8-cov@latest
-
       - name: Cache pnpm modules
         uses: actions/cache@v3
         with:
@@ -151,6 +148,9 @@ jobs:
             ./node_modules
             ./packages
           key: ${{ inputs.cache-key }}
+
+      - name: Install coverage plugin
+        run: pnpm add -D -w @heddendorp/per-test-v8-cov@latest
 
       - name: Cypress run
         uses: cypress-io/github-action@v5
