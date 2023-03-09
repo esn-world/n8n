@@ -107,6 +107,8 @@ jobs:
             /github/home/.pnpm-store
             ./node_modules
             ./packages
+            ./cypress.config.js
+            ./package.json
           key: ${{ inputs.cache-key }}
 
       - name: Cypress build
@@ -147,6 +149,8 @@ jobs:
             /github/home/.pnpm-store
             ./node_modules
             ./packages
+            ./cypress.config.js
+            ./package.json
           key: ${{ inputs.cache-key }}
 
       - name: Install coverage plugin
