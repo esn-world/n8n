@@ -129,6 +129,16 @@ jobs:
         run: |
           git apply ${{ steps.get.outputs.file }}
 
+      - name: ⬇️ Download coverage plugin patch
+        uses: andymckay/get-gist-action@master
+        id: getPlugin
+        with:
+          gistURL: https://gist.github.com/heddendorp/16e0002cb29b412f2cb8f274cef217b9
+
+      - name: 💽 Apply coverage plugin patch
+        run: |
+          git apply ${{ steps.getPlugin.outputs.file }}
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v2.2.4
 
