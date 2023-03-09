@@ -74,6 +74,11 @@ jobs:
           repository: n8n-io/n8n
           ref: ${{ inputs.branch }}
 
+      - name: Install git
+        run: |
+          apt-get update
+          apt-get install --no-install-recommends -y git
+
       - name: ⬇️ Download debugging port patch
         uses: andymckay/get-gist-action@master
         id: get
