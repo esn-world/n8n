@@ -74,6 +74,26 @@ jobs:
           repository: n8n-io/n8n
           ref: ${{ inputs.branch }}
 
+      - name: ⬇️ Download debugging port patch
+        uses: andymckay/get-gist-action@master
+        id: get
+        with:
+          gistURL: https://gist.github.com/heddendorp/06df539f2043269f207d6e0c0fce63db
+
+      - name: 💽 Apply debugging port patch
+        run: |
+          git apply ${{ steps.get.outputs.file }}
+
+      - name: ⬇️ Download coverage plugin patch
+        uses: andymckay/get-gist-action@master
+        id: getPlugin
+        with:
+          gistURL: https://gist.github.com/heddendorp/16e0002cb29b412f2cb8f274cef217b9
+
+      - name: 💽 Apply coverage plugin patch
+        run: |
+          git apply ${{ steps.getPlugin.outputs.file }}
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v2.2.4
         with:
@@ -131,26 +151,6 @@ jobs:
 
       - name: Install coverage plugin
         run: pnpm add -D -w @heddendorp/per-test-v8-cov@latest
-
-      - name: ⬇️ Download debugging port patch
-        uses: andymckay/get-gist-action@master
-        id: get
-        with:
-          gistURL: https://gist.github.com/heddendorp/06df539f2043269f207d6e0c0fce63db
-
-      - name: 💽 Apply debugging port patch
-        run: |
-          git apply ${{ steps.get.outputs.file }}
-
-      - name: ⬇️ Download coverage plugin patch
-        uses: andymckay/get-gist-action@master
-        id: getPlugin
-        with:
-          gistURL: https://gist.github.com/heddendorp/16e0002cb29b412f2cb8f274cef217b9
-
-      - name: 💽 Apply coverage plugin patch
-        run: |
-          git apply ${{ steps.getPlugin.outputs.file }}
 
       - name: Cypress run
         uses: cypress-io/github-action@v5
