@@ -116,6 +116,22 @@ jobs:
           repository: n8n-io/n8n
           ref: ${{ inputs.branch }}
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2.2.4
+
+      - name: Restore cached pnpm modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            /github/home/.cache
+            /github/home/.pnpm-store
+            ./node_modules
+            ./packages
+          key: ${{ inputs.cache-key }}
+
+      - name: Install coverage plugin
+        run: pnpm add -D -w @heddendorp/per-test-v8-cov@latest
+
       - name: ⬇️ Download debugging port patch
         uses: andymckay/get-gist-action@master
         id: get
@@ -135,22 +151,6 @@ jobs:
       - name: 💽 Apply coverage plugin patch
         run: |
           git apply ${{ steps.getPlugin.outputs.file }}
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2.2.4
-
-      - name: Restore cached pnpm modules
-        uses: actions/cache@v3
-        with:
-          path: |
-            /github/home/.cache
-            /github/home/.pnpm-store
-            ./node_modules
-            ./packages
-          key: ${{ inputs.cache-key }}
-
-      - name: Install coverage plugin
-        run: pnpm add -D -w @heddendorp/per-test-v8-cov@latest
 
       - name: Cypress run
         uses: cypress-io/github-action@v5
