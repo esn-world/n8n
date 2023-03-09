@@ -136,7 +136,7 @@ jobs:
           start: pnpm start
           wait-on: 'http://localhost:5678'
           wait-on-timeout: 120 #
-          record: ${{ inputs.record }}
+          # record: ${{ inputs.record }}
           parallel: ${{ inputs.parallel }}
           # We have to provide custom ci-build-id key to make sure that this workflow could be run multiple times
           # in the same parent workflow
@@ -144,7 +144,8 @@ jobs:
           spec: "/__w/n8n/n8n/cypress/${{ inputs.spec }}"
           config-file: /__w/n8n/n8n/cypress.config.js
         env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          # CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          ELECTRON_EXTRA_LAUNCH_ARGS: '--remote-debugging-port=40500'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           E2E_TESTS: true
           COMMIT_INFO_MESSAGE: 🌳 ${{ inputs.branch }} 🖥️ ${{ inputs.run-env }} 🤖 ${{ inputs.user }} 🗃️ ${{ inputs.spec }}
