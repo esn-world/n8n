@@ -136,8 +136,8 @@ jobs:
       - name: Install coverage plugin
         run: pnpm add -D -w @heddendorp/per-test-v8-cov@latest
 
-      - name: Update config to add coverage
-        run: npx -y @heddendorp/historic-analysis-helper@latest update-n8n
+      # - name: Update config to add coverage
+      #   run: npx -y @heddendorp/historic-analysis-helper@latest update-n8n
 
       - name: Cypress run
         uses: cypress-io/github-action@v5
